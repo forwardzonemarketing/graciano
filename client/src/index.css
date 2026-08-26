@@ -140,6 +140,8 @@
 .intro-overlay h2 span { color: var(--brass-light); font-style: italic; font-weight: 400; }
 .intro-line { position: relative; width: min(420px, 66vw); height: 1px; background: linear-gradient(90deg, transparent, var(--brass-light), transparent); transform-origin: 50% 50%; box-shadow: 0 0 16px rgb(185 138 72 / 55%); }
 .intro-overlay small { position: relative; color: #77716a; font-size: 8px; text-transform: uppercase; letter-spacing: .3em; }
+.intro-skip { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 0; color: #aaa297; border: 0; border-bottom: 1px solid rgb(185 138 72 / 32%); background: transparent; font: 600 8px/1 "Manrope", sans-serif; text-transform: uppercase; letter-spacing: .17em; transition: color .2s var(--ease-out), border-color .2s var(--ease-out); }
+.intro-skip:hover, .intro-skip:focus-visible { color: var(--brass-light); border-color: var(--brass-light); outline: 0; }
 @keyframes intro-ambient { 0% { transform: scale(.72); opacity: 0; } 55% { opacity: 1; } 100% { transform: scale(1.08); opacity: .72; } }
 
 .site-header { position: fixed; z-index: 90; top: 0; left: 0; width: 100%; padding: 22px 0; color: var(--ivory); transition: padding .3s var(--ease-out), background .3s var(--ease-out), border-color .3s var(--ease-out); border-bottom: 1px solid transparent; }
@@ -182,6 +184,10 @@
 .led-text, .section-heading-row h2 em, .contact-copy h2 em { animation: led-breathe 4.8s var(--ease-in-out) infinite; }
 @keyframes led-breathe { 0%, 100% { text-shadow: 0 0 5px rgb(210 170 107 / 8%), 0 0 18px transparent; } 50% { text-shadow: 0 0 8px rgb(210 170 107 / 30%), 0 0 28px rgb(185 138 72 / 14%); } }
 .hero-lead { width: min(620px, 88%); color: #c8c0b5; font-size: clamp(.98rem, 1.2vw, 1.13rem); line-height: 1.78; }
+.hero-scope-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 19px; color: #bdb4a8; font-size: 10px; letter-spacing: .04em; line-height: 1.5; }
+.hero-scope-link svg { color: var(--brass); flex: 0 0 auto; transition: transform .2s var(--ease-out); }
+.hero-scope-link:hover { color: var(--ivory); }
+.hero-scope-link:hover svg:last-child { transform: translateX(4px); }
 .hero-nameplate { display: grid; grid-template-columns: auto auto; width: fit-content; margin-top: 28px; padding: 10px 15px 10px 14px; border-left: 1px solid var(--brass); background: rgb(9 10 11 / 54%); backdrop-filter: blur(10px); }
 .hero-nameplate > span { grid-row: span 2; align-self: center; margin-right: 9px; color: var(--brass-light); font-family: "Cormorant Garamond", serif; font-size: 21px; font-style: italic; }
 .hero-nameplate strong { font-family: "Cormorant Garamond", serif; font-size: 22px; font-weight: 500; line-height: 1; }
@@ -314,6 +320,18 @@
 .faq-item[open] summary > svg { transform: rotate(90deg); }
 .faq-item p { margin: -6px 44px 30px 62px; color: #9e978d; font-size: 13px; line-height: 1.8; }
 
+.section-contact-path { background: #101113; isolation: isolate; overflow: hidden; }
+.section-contact-path::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(110deg, transparent 0 60%, rgb(75 22 27 / 15%) 60% 60.2%, transparent 60.2%), radial-gradient(circle at 84% 18%, rgb(185 138 72 / 9%), transparent 29%); }
+.contact-path-layout { display: grid; grid-template-columns: minmax(320px, .78fr) minmax(450px, 1fr); gap: 9vw; align-items: end; }
+.contact-path-intro h2 { margin: 25px 0 27px; max-width: 650px; font-family: "Cormorant Garamond", serif; font-size: clamp(3.2rem, 5vw, 6.2rem); font-weight: 500; line-height: .9; letter-spacing: -.04em; }
+.contact-path-intro h2 em { display: block; margin-left: 4vw; color: var(--brass-light); font-weight: 400; }
+.contact-path-intro > p { max-width: 520px; margin: 0; color: var(--muted-ivory); font-size: 14px; line-height: 1.85; }
+.contact-path-steps { border-top: 1px solid rgb(185 138 72 / 23%); }
+.contact-path-step { display: grid; grid-template-columns: 52px .82fr 1.2fr; gap: 22px; align-items: baseline; min-height: 136px; padding: 27px 0; border-bottom: 1px solid rgb(185 138 72 / 23%); }
+.contact-path-step > span { color: var(--brass); font-size: 9px; letter-spacing: .18em; }
+.contact-path-step h3 { margin: 0; font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 500; line-height: 1; }
+.contact-path-step p { margin: 0; color: #9e978d; font-size: 12px; line-height: 1.78; }
+
 .section-contact { padding: 165px 0; isolation: isolate; background: #090a0b; overflow: hidden; }
 .contact-glow { position: absolute; z-index: -1; width: 670px; height: 670px; left: -260px; bottom: -270px; border-radius: 50%; background: radial-gradient(circle, rgb(75 22 27 / 45%), transparent 67%); }
 .contact-layout { display: grid; grid-template-columns: .9fr 1fr; gap: 10vw; align-items: start; }
@@ -406,6 +424,7 @@
   .contact-copy { max-width: 700px; }
   .faq-layout { grid-template-columns: 1fr; gap: 58px; }
   .faq-heading { position: relative; top: auto; max-width: 680px; }
+  .contact-path-layout { grid-template-columns: 1fr; gap: 55px; }
   .footer-main { grid-template-columns: 1fr 1fr; }
   .footer-main nav { grid-row: span 2; }
 }
@@ -425,6 +444,7 @@
   .hero h1 { margin-top: 25px; font-size: clamp(3.75rem, 18vw, 5.7rem); line-height: .82; }
   .hero h1 .hero-italic { margin-left: 6vw; }
   .hero-lead { width: 100%; font-size: 14px; line-height: 1.7; }
+  .hero-scope-link { font-size: 9px; }
   .hero-actions { align-items: stretch; flex-direction: column; gap: 12px; }
   .button-primary, .button-quiet { justify-content: center; }
   .hero-nameplate { background: rgb(9 10 11 / 73%); }
@@ -457,6 +477,8 @@
   .external-form-content h3 { font-size: 3rem; }
   .faq-item summary { min-height: 92px; grid-template-columns: 36px 1fr auto; font-size: 1.35rem; }
   .faq-item p { margin: -3px 28px 27px 52px; }
+  .contact-path-step { grid-template-columns: 32px 1fr; gap: 12px; min-height: auto; padding: 23px 0; }
+  .contact-path-step p { grid-column: 2; }
   .footer-main { grid-template-columns: 1fr; gap: 34px; }
   .footer-main nav { grid-row: auto; }
   .footer-bottom { align-items: flex-start; flex-direction: column; gap: 14px; line-height: 1.7; }

@@ -41,6 +41,7 @@ const ASSETS = {
 const navItems = [
   { label: "Atuação", href: "#atuacao" },
   { label: "Orientação", href: "#orientacao" },
+  { label: "Adequação", href: "#adequacao" },
   { label: "Sobre", href: "#sobre" },
   { label: "Contato", href: "#contato" },
 ];
@@ -122,6 +123,14 @@ const faqItems = [
   {
     question: "O envio do formulário já estabelece uma relação advogado-cliente?",
     answer: "Não. O acesso ou preenchimento do formulário de contato não estabelece relação advogado-cliente. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
+  },
+  {
+    question: "O que é útil informar no primeiro contato?",
+    answer: "É suficiente apresentar, de maneira objetiva, o motivo do contato e indicar se há intimação, prazo, medida judicial, investigação ou bloqueio em curso. Evite encaminhar documentos e dados excessivamente sensíveis antes de uma orientação individualizada.",
+  },
+  {
+    question: "O que acontece depois da solicitação inicial?",
+    answer: "A solicitação pode ser avaliada quanto à aderência ao escopo de atuação, disponibilidade e eventual conflito de interesses. Somente depois dessa análise poderá ser definido se haverá próximo contato e, se for o caso, formalização profissional.",
   },
 ];
 
@@ -326,15 +335,23 @@ function CursorHalo() {
 }
 
 function IntroOverlay() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.sessionStorage.getItem("lucas-graciano-intro-seen") !== "true";
+  });
   const reduceMotion = useReducedMotion();
 
+  const dismiss = () => {
+    window.sessionStorage.setItem("lucas-graciano-intro-seen", "true");
+    setVisible(false);
+  };
+
   useEffect(() => {
+    if (!visible) return;
     document.body.style.overflow = "hidden";
     const timer = window.setTimeout(() => {
-      setVisible(false);
-      document.body.style.overflow = "";
-    }, reduceMotion ? 450 : 2850);
+      dismiss();
+    }, reduceMotion ? 150 : 1750);
 
     return () => {
       window.clearTimeout(timer);
@@ -349,8 +366,10 @@ function IntroOverlay() {
           className="intro-overlay"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-          transition={{ duration: reduceMotion ? 0.15 : 0.9, ease: [0.77, 0, 0.175, 1] }}
-          aria-hidden="true"
+          transition={{ duration: reduceMotion ? 0.15 : 0.7, ease: [0.77, 0, 0.175, 1] }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Apresentação do escritório"
         >
           <div className="intro-ambient" />
           <motion.img
@@ -389,6 +408,9 @@ function IntroOverlay() {
           >
             Estratégia • Técnica • Discrição
           </motion.small>
+          <button className="intro-skip" type="button" onClick={dismiss} autoFocus>
+            Pular apresentação <ArrowRight size={14} />
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
@@ -459,9 +481,18 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.48 }}
           >
-            Atuação em investigações de colarinho branco, lavagem de dinheiro,
-            estelionato, medidas patrimoniais e Habeas Corpus em Tribunais Superiores.
+            Atuação técnica em investigações e processos de natureza econômico-financeira,
+            com análise individualizada de riscos, medidas patrimoniais, Habeas Corpus e recursos.
           </motion.p>
+          <motion.a
+            className="hero-scope-link"
+            href="#adequacao"
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+          >
+            <ShieldCheck size={15} /> Verifique se este escopo atende à sua situação <ArrowRight size={14} />
+          </motion.a>
           <motion.div
             className="hero-nameplate"
             initial={reduceMotion ? false : { opacity: 0, x: -20 }}
@@ -479,10 +510,10 @@ function Hero() {
             transition={{ duration: 0.65, delay: 0.58 }}
           >
             <a className="button-primary" href="#contato">
-              Solicitar contato <ArrowRight size={18} />
+              Entender o próximo passo <ArrowRight size={18} />
             </a>
-            <a className="button-quiet" href="#atuacao">
-              Conheça a atuação <ArrowDown size={17} />
+            <a className="button-quiet" href="#adequacao">
+              Verificar adequação <ArrowDown size={17} />
             </a>
           </motion.div>
         </div>
@@ -585,10 +616,10 @@ function OrientationSection() {
           <div className="eyebrow"><span className="eyebrow-line" /> Orientação jurídica</div>
           <h2>Há momentos em que esperar também é uma decisão.</h2>
           <p>
-            A análise antecipada pode ajudar a compreender o cenário, preservar direitos
-            e definir o próximo passo com maior segurança.
+            Quando há uma intimação, medida em curso ou possível impacto patrimonial,
+            compreender o cenário e os próximos passos sem postergar a avaliação pode ser relevante.
           </p>
-          <a className="text-link" href="#contato">Conversar sobre o caso <ArrowRight size={17} /></a>
+          <a className="text-link" href="#primeiro-contato">Entender o primeiro contato <ArrowRight size={17} /></a>
         </div>
         <div className="timeline">
           {moments.map((moment, index) => (
@@ -765,10 +796,54 @@ function FaqSection() {
   );
 }
 
+function ContactPathSection() {
+  const steps = [
+    {
+      number: "01",
+      title: "Situe o momento",
+      text: "Indique de forma objetiva se há intimação, prazo, investigação, medida judicial ou bloqueio em curso.",
+    },
+    {
+      number: "02",
+      title: "Preserve o essencial",
+      text: "Mantenha documentos e informações organizados, mas evite enviá-los no primeiro contato sem orientação individualizada.",
+    },
+    {
+      number: "03",
+      title: "Aguarde a análise inicial",
+      text: "O escritório verifica a aderência ao escopo, disponibilidade e eventual conflito de interesses antes de definir um próximo contato.",
+    },
+  ];
+
+  return (
+    <section className="section section-contact-path" id="primeiro-contato" aria-labelledby="contact-path-title">
+      <div className="page-shell contact-path-layout">
+        <Reveal className="contact-path-intro">
+          <div className="eyebrow"><span className="eyebrow-line" /> Antes do contato</div>
+          <h2 id="contact-path-title">O primeiro passo não exige expor <em>todo o caso.</em></h2>
+          <p>
+            Uma apresentação breve e organizada ajuda a identificar se a situação está dentro do
+            escopo de atuação. A análise jurídica aprofundada depende de contato profissional posterior.
+          </p>
+        </Reveal>
+        <div className="contact-path-steps">
+          {steps.map((step, index) => (
+            <Reveal className="contact-path-step" delay={index * 0.06} key={step.number}>
+              <span>{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ContactSection() {
   const openExternalForm = () => {
-    toast.info("Botão preparado para o formulário externo", {
-      description: "Adicione aqui a URL do seu formulário próprio para ativar o redirecionamento.",
+    toast.info("Canal de contato em atualização", {
+      description: "O link do formulário oficial será incluído aqui assim que for disponibilizado pelo escritório.",
     });
   };
 
@@ -778,10 +853,10 @@ function ContactSection() {
       <div className="page-shell contact-layout">
         <Reveal className="contact-copy">
           <div className="eyebrow"><span className="eyebrow-line" /> Contato inicial</div>
-          <h2>Acesse o formulário com <em>clareza e discrição.</em></h2>
+          <h2>Quando o canal estiver disponível, avance com <em>clareza e discrição.</em></h2>
           <p>
-            Utilize o formulário oficial do escritório para encaminhar sua solicitação inicial.
-            Evite compartilhar documentos ou informações excessivamente sensíveis nesta etapa.
+            O formulário oficial será o canal destinado ao pedido de contato inicial. Evite compartilhar
+            documentos ou informações excessivamente sensíveis antes de receber orientação individualizada.
           </p>
           <div className="contact-assurances">
             <div><Check size={15} /> Contato inicial informativo</div>
@@ -790,7 +865,7 @@ function ContactSection() {
           </div>
           <div className="contact-status">
             <Mail size={18} />
-            <span><strong>Integração preparada</strong>O botão receberá o endereço do seu formulário próprio assim que a URL for adicionada.</span>
+            <span><strong>Canal em preparação</strong>O endereço do formulário oficial será incluído neste botão assim que for disponibilizado pelo escritório.</span>
           </div>
         </Reveal>
 
@@ -798,13 +873,13 @@ function ContactSection() {
           <div className="external-form-number">01</div>
           <div className="external-form-content">
             <span>Formulário próprio</span>
-            <h3>Inicie seu contato pelo canal oficial.</h3>
+            <h3>Canal oficial de contato em preparação.</h3>
             <p>
-              O acesso ao formulário não estabelece relação advogado-cliente. A contratação depende
-              de análise individual e formalização por contrato de honorários.
+              Assim que o formulário for publicado, este será o ponto de acesso para uma solicitação inicial.
+              O preenchimento não estabelece relação advogado-cliente.
             </p>
             <button className="button-primary external-form-button" type="button" onClick={openExternalForm}>
-              Acessar formulário de contato <ArrowRight size={18} />
+              Ver status do formulário <ArrowRight size={18} />
             </button>
           </div>
         </Reveal>
@@ -854,6 +929,7 @@ export default function Home() {
         <AboutSection />
         <ScopeNotice />
         <FaqSection />
+        <ContactPathSection />
         <ContactSection />
       </main>
       <Footer />

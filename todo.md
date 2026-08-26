@@ -28,15 +28,15 @@
 
 ## Auditoria de confiança e conversão ética
 
-- [ ] Mapear as dúvidas de um visitante sob pressão jurídica em cada etapa da página.
-- [ ] Identificar objeções sobre especialização, sigilo, atendimento, urgência e próximos passos.
-- [ ] Revisar chamadas para ação para reduzir ambiguidade sem indução indevida.
-- [ ] Acrescentar sinais factuais de confiança sem inventar experiência, resultados ou credenciais.
-- [ ] Melhorar o fluxo para situações urgentes e explicar o que acontece após o contato.
-- [ ] Validar a nova jornada em desktop e mobile.
+- [x] Mapear as dúvidas de um visitante sob pressão jurídica em cada etapa da página.
+- [x] Identificar objeções sobre especialização, sigilo, atendimento, urgência e próximos passos.
+- [x] Revisar chamadas para ação para reduzir ambiguidade sem indução indevida.
+- [x] Acrescentar sinais factuais de confiança sem inventar experiência, resultados ou credenciais.
+- [x] Melhorar o fluxo para situações urgentes e explicar o que acontece após o contato.
+- [x] Validar a nova jornada em desktop e mobile.
 
 ## Repositório GitHub selecionado
 
-- [ ] Confirmar a conta GitHub conectada e o repositório de destino: caosordenadogerencia-crypto/drlucasgraciano.
-- [ ] Revisar o estado do projeto antes da exportação.
-- [ ] Enviar o código para o repositório GitHub selecionado.
+- [x] Confirmar a conta GitHub conectada e o repositório de destino: caosordenadogerencia-crypto/drlucasgraciano.
+- [x] Revisar o estado do projeto antes da exportação.
+- [x] Enviar o código para o repositório GitHub selecionado.
