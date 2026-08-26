@@ -86,3 +86,11 @@ O documento informa áreas de atuação, situações de consulta, compromisso co
 ## Sistema de movimento
 
 O cursor usa halo discreto somente em desktop. O progresso de leitura aparece como filete de latão no topo. O hero combina parallax do retrato, revelação por máscara e tipografia escalonada. Cada seção possui um motivo próprio — linha, índice, recorte ou deslocamento — mas todos usam a mesma curva de aceleração. Cartões de atuação respondem ao ponteiro com inclinação máxima de 1,5 grau e sombra direcional muito contida. Em dispositivos móveis, parallax e cursor especial são removidos para preservar desempenho e ergonomia.
+
+## Style Decisions — reformulação solicitada
+
+As imagens deixam de se comportar como cartões independentes e passam a compor o espaço arquitetônico da página. O retrato do Dr. Lucas ocupará o plano de fundo principal do hero, com recorte editorial, gradientes de contraste e leitura preservada; a balança e a biblioteca serão camadas atmosféricas de fundo nas demais seções.
+
+A entrada será uma sobreposição cinematográfica curta: símbolo, o nome completo **Dr. Lucas Graciano** e a especialidade surgem em sequência, com filete luminoso e saída por máscara. O brilho LED será quente e contido, aplicado apenas a palavras-chave, linhas e microdetalhes em latão, com pulso lento e sem aparência neon excessiva.
+
+Para SEO e GEO, a página adotará hierarquia semântica clara, metadados completos, canonical, Open Graph, Twitter Card, JSON-LD factual para `LegalService`, `Person`, `WebSite` e `FAQPage`, textos objetivos de resposta, fontes institucionais e arquivos de rastreamento. Nenhum endereço, telefone, número de OAB ou perfil social será inventado.

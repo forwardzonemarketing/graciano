@@ -93,6 +93,106 @@ const moments = [
   "Necessidade de orientação preventiva antes de uma operação de maior complexidade.",
 ];
 
+const faqItems = [
+  {
+    question: "Em quais áreas o Dr. Lucas Graciano atua?",
+    answer: "A atuação é concentrada em Direito Penal Econômico e Financeiro, incluindo investigações por crimes contra o sistema financeiro, lavagem de dinheiro, estelionato, medidas cautelares patrimoniais, Habeas Corpus, recursos e prevenção de riscos jurídico-penais.",
+  },
+  {
+    question: "Quando é recomendável buscar orientação jurídica?",
+    answer: "A consulta costuma ser relevante diante de intimação, busca e apreensão, bloqueio de bens ou contas, investigação sobre movimentações financeiras e antes de contratos ou operações que possam envolver risco penal.",
+  },
+  {
+    question: "O contato inicial é protegido por sigilo?",
+    answer: "A atuação profissional do advogado é regida pelo dever de sigilo previsto no Estatuto da Advocacia e no Código de Ética e Disciplina da OAB. Ainda assim, recomenda-se evitar o envio de documentos ou dados excessivamente sensíveis no primeiro contato.",
+  },
+  {
+    question: "O envio do formulário já estabelece uma relação advogado-cliente?",
+    answer: "Não. O formulário serve apenas para organizar o contato inicial. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
+  },
+];
+
+function SeoRuntime() {
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    const currentOrigin = window.location.origin;
+    const canonicalUrl = `${currentOrigin}${window.location.pathname}`;
+    setOrigin(currentOrigin);
+
+    document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
+    document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute("content", canonicalUrl);
+    document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.setAttribute("content", `${currentOrigin}${ASSETS.portrait}`);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]')?.setAttribute("content", `${currentOrigin}${ASSETS.portrait}`);
+  }, []);
+
+  if (!origin) return null;
+
+  const pageUrl = `${origin}${window.location.pathname}`;
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${origin}/#website`,
+        url: origin,
+        name: "Dr. Lucas Graciano | Advocacia Criminal",
+        inLanguage: "pt-BR",
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: "Dr. Lucas Graciano | Advogado Criminalista",
+        description: "Advocacia Criminal com atuação em Direito Penal Econômico e Financeiro, lavagem de dinheiro, estelionato, medidas patrimoniais, Habeas Corpus e recursos.",
+        inLanguage: "pt-BR",
+        isPartOf: { "@id": `${origin}/#website` },
+        about: [{ "@id": `${origin}/#advogado` }, { "@id": `${origin}/#escritorio` }],
+        primaryImageOfPage: { "@type": "ImageObject", url: `${origin}${ASSETS.portrait}` },
+      },
+      {
+        "@type": "LegalService",
+        "@id": `${origin}/#escritorio`,
+        name: "Dr. Lucas Graciano | Advocacia Criminal",
+        url: origin,
+        logo: `${origin}${ASSETS.logo}`,
+        image: `${origin}${ASSETS.portrait}`,
+        description: "Escritório de advocacia criminal com atuação concentrada em Direito Penal Econômico e Financeiro.",
+        areaServed: { "@type": "Country", name: "Brasil" },
+        founder: { "@id": `${origin}/#advogado` },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Áreas de atuação jurídica",
+          itemListElement: practiceAreas.map((area) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: area.title, description: area.text },
+          })),
+        },
+      },
+      {
+        "@type": "Person",
+        "@id": `${origin}/#advogado`,
+        name: "Dr. Lucas Graciano",
+        jobTitle: "Advogado Criminalista",
+        image: `${origin}${ASSETS.portrait}`,
+        worksFor: { "@id": `${origin}/#escritorio` },
+        knowsAbout: practiceAreas.map((area) => area.title),
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${pageUrl}#perguntas-frequentes`,
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      },
+    ],
+  };
+
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }} />;
+}
+
 function Reveal({
   children,
   className = "",
@@ -212,15 +312,96 @@ function CursorHalo() {
   return <motion.div aria-hidden="true" className="cursor-halo" style={{ x: springX, y: springY }} />;
 }
 
+function IntroOverlay() {
+  const [visible, setVisible] = useState(true);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const timer = window.setTimeout(() => {
+      setVisible(false);
+      document.body.style.overflow = "";
+    }, reduceMotion ? 450 : 2850);
+
+    return () => {
+      window.clearTimeout(timer);
+      document.body.style.overflow = "";
+    };
+  }, [reduceMotion]);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className="intro-overlay"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+          transition={{ duration: reduceMotion ? 0.15 : 0.9, ease: [0.77, 0, 0.175, 1] }}
+          aria-hidden="true"
+        >
+          <div className="intro-ambient" />
+          <motion.img
+            className="intro-mark"
+            src={ASSETS.logo}
+            alt=""
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+          />
+          <motion.span
+            className="intro-kicker"
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.38 }}
+          >
+            Advocacia Criminal
+          </motion.span>
+          <motion.h2
+            initial={reduceMotion ? false : { opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.52, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <span>Dr.</span> Lucas Graciano
+          </motion.h2>
+          <motion.div
+            className="intro-line"
+            initial={reduceMotion ? false : { scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.05, delay: 0.76, ease: [0.77, 0, 0.175, 1] }}
+          />
+          <motion.small
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1.15 }}
+          >
+            Estratégia • Técnica • Discrição
+          </motion.small>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 function Hero() {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
-  const portraitY = useTransform(scrollYProgress, [0, 0.24], ["0%", "13%"]);
+  const portraitY = useTransform(scrollYProgress, [0, 0.24], ["0%", "10%"]);
   const copyY = useTransform(scrollYProgress, [0, 0.2], ["0%", "-8%"]);
 
   return (
     <section className="hero" id="top">
-      <div className="hero-backdrop" style={{ backgroundImage: `url(${ASSETS.hero})` }} />
+      <img className="hero-library-background" src={ASSETS.hero} alt="" aria-hidden="true" loading="eager" />
+      <motion.img
+        className="hero-portrait-background"
+        src={ASSETS.portrait}
+        alt="Dr. Lucas Graciano, advogado criminalista"
+        width="1086"
+        height="1448"
+        loading="eager"
+        fetchPriority="high"
+        style={reduceMotion ? undefined : { y: portraitY }}
+      />
+      <div className="hero-image-wash" />
       <div className="hero-noise" />
       <div className="hero-rule hero-rule-a" />
       <div className="hero-rule hero-rule-b" />
@@ -235,6 +416,7 @@ function Hero() {
             <span className="eyebrow-line" /> Direito Penal Econômico e Financeiro
           </motion.div>
           <h1>
+            <span className="sr-only">Dr. Lucas Graciano, advogado criminalista: </span>
             <motion.span
               initial={reduceMotion ? false : { opacity: 0, y: 38 }}
               animate={{ opacity: 1, y: 0 }}
@@ -243,7 +425,7 @@ function Hero() {
               Defesa criminal
             </motion.span>
             <motion.span
-              className="hero-italic"
+              className="hero-italic led-text"
               initial={reduceMotion ? false : { opacity: 0, y: 38 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.3, ease: [0.23, 1, 0.32, 1] }}
@@ -268,6 +450,16 @@ function Hero() {
             estelionato, medidas patrimoniais e Habeas Corpus em Tribunais Superiores.
           </motion.p>
           <motion.div
+            className="hero-nameplate"
+            initial={reduceMotion ? false : { opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.54 }}
+          >
+            <span>Dr.</span>
+            <strong>Lucas Graciano</strong>
+            <small>Advogado Criminalista</small>
+          </motion.div>
+          <motion.div
             className="hero-actions"
             initial={reduceMotion ? false : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -283,29 +475,16 @@ function Hero() {
         </div>
 
         <motion.div
-          className="portrait-stage"
-          initial={reduceMotion ? false : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
-          transition={{ duration: 1.05, delay: 0.22, ease: [0.77, 0, 0.175, 1] }}
-          style={reduceMotion ? undefined : { y: portraitY }}
+          className="hero-monogram-orbit"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.65 }}
+          aria-hidden="true"
         >
-          <div className="portrait-frame">
-            <img src={ASSETS.portrait} alt="Dr. Lucas Graciano em escritório jurídico" />
-            <div className="portrait-overlay" />
-          </div>
-          <div className="portrait-caption">
-            <span>Dr.</span>
-            <strong>Lucas Graciano</strong>
-            <small>Advogado Criminalista</small>
-          </div>
-          <motion.div
-            className="orbit-seal"
-            animate={reduceMotion ? undefined : { rotate: 360 }}
-            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            aria-hidden="true"
-          >
-            <span>LUCAS GRACIANO • ADVOCACIA CRIMINAL • </span>
-          </motion.div>
+          <motion.span animate={reduceMotion ? undefined : { rotate: 360 }} transition={{ duration: 28, repeat: Infinity, ease: "linear" }}>
+            LUCAS GRACIANO • ADVOCACIA CRIMINAL • 
+          </motion.span>
+          <b>LG</b>
         </motion.div>
       </motion.div>
 
@@ -339,6 +518,7 @@ function CredentialRail() {
 function PracticeSection() {
   return (
     <section className="section section-practice" id="atuacao">
+      <img className="section-background practice-background" src={ASSETS.texture} alt="" aria-hidden="true" loading="lazy" />
       <div className="section-index" aria-hidden="true">01</div>
       <div className="page-shell">
         <Reveal className="section-heading-row">
@@ -386,7 +566,7 @@ function PracticeSection() {
 function OrientationSection() {
   return (
     <section className="section section-orientation" id="orientacao">
-      <div className="orientation-texture" style={{ backgroundImage: `url(${ASSETS.texture})` }} />
+      <img className="orientation-texture" src={ASSETS.texture} alt="" aria-hidden="true" loading="lazy" />
       <div className="page-shell orientation-layout">
         <div className="orientation-sticky">
           <div className="eyebrow"><span className="eyebrow-line" /> Orientação jurídica</div>
@@ -421,13 +601,17 @@ function OrientationSection() {
 function AboutSection() {
   return (
     <section className="section section-about" id="sobre">
+      <img
+        className="about-background"
+        src={ASSETS.scales}
+        alt="Balança da justiça em acabamento de latão"
+        width="1536"
+        height="1152"
+        loading="lazy"
+      />
+      <div className="about-background-wash" />
       <div className="page-shell about-layout">
-        <Reveal className="about-visual">
-          <div className="about-image-wrap">
-            <img src={ASSETS.scales} alt="Balança da justiça em acabamento de latão" />
-            <div className="image-corner top-left" />
-            <div className="image-corner bottom-right" />
-          </div>
+        <Reveal className="about-visual about-visual-background">
           <div className="about-quote">
             <Scale size={24} strokeWidth={1.35} />
             <p>“Rigor técnico, leitura estratégica e discrição em cada etapa.”</p>
@@ -446,6 +630,14 @@ function AboutSection() {
             profissional inerente à advocacia, nos termos do Estatuto da Advocacia e do Código
             de Ética e Disciplina da OAB.
           </p>
+          <div className="institutional-sources" aria-label="Fontes institucionais">
+            <a href="https://www.planalto.gov.br/ccivil_03/leis/l8906.htm" target="_blank" rel="noreferrer">
+              Estatuto da Advocacia <ExternalLink size={13} />
+            </a>
+            <a href="https://www.oab.org.br/publicacoes/AbrirPDF?LivroId=0000004085" target="_blank" rel="noreferrer">
+              Código de Ética da OAB <ExternalLink size={13} />
+            </a>
+          </div>
           <div className="principles">
             <div><span>01</span><strong>Escuta responsável</strong></div>
             <div><span>02</span><strong>Análise do cenário</strong></div>
@@ -471,6 +663,33 @@ function ScopeNotice() {
           crimes de trânsito ou demandas cíveis, trabalhistas e de família. Para essas matérias,
           recomenda-se buscar profissional especializado na área correspondente.
         </p>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section className="section section-faq" id="perguntas-frequentes" aria-labelledby="faq-title">
+      <div className="page-shell faq-layout">
+        <Reveal className="faq-heading">
+          <div className="eyebrow"><span className="eyebrow-line" /> Respostas objetivas</div>
+          <h2 id="faq-title">Perguntas frequentes sobre a atuação criminal.</h2>
+          <p>
+            Informações gerais para compreender o escopo do trabalho e a finalidade do contato inicial.
+            Cada situação, porém, exige análise jurídica individualizada.
+          </p>
+        </Reveal>
+        <div className="faq-list">
+          {faqItems.map((item, index) => (
+            <Reveal key={item.question} delay={index * 0.05}>
+              <details className="faq-item">
+                <summary><span>0{index + 1}</span>{item.question}<ChevronRight size={18} /></summary>
+                <p>{item.answer}</p>
+              </details>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -593,6 +812,8 @@ export default function Home() {
 
   return (
     <div className="site-page">
+      <SeoRuntime />
+      <IntroOverlay />
       <motion.div className="reading-progress" style={{ scaleX: progress }} />
       <CursorHalo />
       <Header />
@@ -603,6 +824,7 @@ export default function Home() {
         <OrientationSection />
         <AboutSection />
         <ScopeNotice />
+        <FaqSection />
         <ContactSection />
       </main>
       <Footer />
