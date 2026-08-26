@@ -46,3 +46,10 @@
 - [x] Substituir a rota curinga por fallback compatível com o roteamento do Express.
 - [x] Validar build, inicialização do servidor e rota de aplicação.
 - [ ] Salvar e sincronizar a correção com o GitHub.
+
+## Compatibilidade Vercel
+
+- [x] Confirmar a causa da execução indevida do servidor Express durante o deploy.
+- [x] Adicionar configuração Vercel para build Vite estática e fallback de rotas do frontend.
+- [x] Validar o diretório de saída e a resolução de rotas sem iniciar servidor Node.
+- [ ] Salvar e sincronizar a correção no GitHub.

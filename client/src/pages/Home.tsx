@@ -31,11 +31,11 @@ import {
 import { toast } from "sonner";
 
 const ASSETS = {
-  portrait: "/manus-storage/lucas-graciano-retrato_4e787050.jpeg",
-  hero: "/manus-storage/lucas-hero-library.webp_5b90f75a.png",
-  scales: "/manus-storage/lucas-scales-detail_fd765daf.png",
-  texture: "/manus-storage/lucas-editorial-texture_58d13232.png",
-  logo: "/manus-storage/lucas-logo-mark_b0385ff0.png",
+  portrait: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/UVxaAmDKsVucQCuf.jpeg",
+  hero: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/czrIQMDbpsLtlgaI.png",
+  scales: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/iogxXYbdvytaIgJS.png",
+  texture: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/XFnonbtKMZaWNJLM.png",
+  logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/mBRpiGBVkpkjoYXI.png",
 };
 
 const navItems = [
@@ -140,17 +140,22 @@ function SeoRuntime() {
   useEffect(() => {
     const currentOrigin = window.location.origin;
     const canonicalUrl = `${currentOrigin}${window.location.pathname}`;
+    const assetUrl = (asset: string) => asset.startsWith("http") ? asset : `${currentOrigin}${asset}`;
+    const portraitUrl = assetUrl(ASSETS.portrait);
     setOrigin(currentOrigin);
 
     document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute("href", canonicalUrl);
     document.querySelector<HTMLMetaElement>('meta[property="og:url"]')?.setAttribute("content", canonicalUrl);
-    document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.setAttribute("content", `${currentOrigin}${ASSETS.portrait}`);
-    document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]')?.setAttribute("content", `${currentOrigin}${ASSETS.portrait}`);
+    document.querySelector<HTMLMetaElement>('meta[property="og:image"]')?.setAttribute("content", portraitUrl);
+    document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]')?.setAttribute("content", portraitUrl);
   }, []);
 
   if (!origin) return null;
 
   const pageUrl = `${origin}${window.location.pathname}`;
+  const assetUrl = (asset: string) => asset.startsWith("http") ? asset : `${origin}${asset}`;
+  const portraitUrl = assetUrl(ASSETS.portrait);
+  const logoUrl = assetUrl(ASSETS.logo);
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -170,15 +175,15 @@ function SeoRuntime() {
         inLanguage: "pt-BR",
         isPartOf: { "@id": `${origin}/#website` },
         about: [{ "@id": `${origin}/#advogado` }, { "@id": `${origin}/#escritorio` }],
-        primaryImageOfPage: { "@type": "ImageObject", url: `${origin}${ASSETS.portrait}` },
+        primaryImageOfPage: { "@type": "ImageObject", url: portraitUrl },
       },
       {
         "@type": "LegalService",
         "@id": `${origin}/#escritorio`,
         name: "Dr. Lucas Graciano | Advocacia Criminal",
         url: origin,
-        logo: `${origin}${ASSETS.logo}`,
-        image: `${origin}${ASSETS.portrait}`,
+        logo: logoUrl,
+        image: portraitUrl,
         description: "Escritório de advocacia criminal com atuação concentrada em Direito Penal Econômico e Financeiro.",
         areaServed: { "@type": "Country", name: "Brasil" },
         founder: { "@id": `${origin}/#advogado` },
@@ -196,7 +201,7 @@ function SeoRuntime() {
         "@id": `${origin}/#advogado`,
         name: "Dr. Lucas Graciano",
         jobTitle: "Advogado Criminalista",
-        image: `${origin}${ASSETS.portrait}`,
+        image: portraitUrl,
         worksFor: { "@id": `${origin}/#escritorio` },
         knowsAbout: practiceAreas.map((area) => area.title),
       },

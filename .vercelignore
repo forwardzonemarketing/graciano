@@ -1,0 +1,5 @@
+server/
+.manus-logs/
+dist/
+screenshots/
+webdev-static-assets/
