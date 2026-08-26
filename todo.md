@@ -25,3 +25,18 @@
 - [x] Criar um único botão visualmente destacado e preparado para URL externa.
 - [x] Ajustar o texto da seção para não indicar envio interno de dados.
 - [x] Validar compilação e responsividade.
+
+## Auditoria de confiança e conversão ética
+
+- [ ] Mapear as dúvidas de um visitante sob pressão jurídica em cada etapa da página.
+- [ ] Identificar objeções sobre especialização, sigilo, atendimento, urgência e próximos passos.
+- [ ] Revisar chamadas para ação para reduzir ambiguidade sem indução indevida.
+- [ ] Acrescentar sinais factuais de confiança sem inventar experiência, resultados ou credenciais.
+- [ ] Melhorar o fluxo para situações urgentes e explicar o que acontece após o contato.
+- [ ] Validar a nova jornada em desktop e mobile.
+
+## Repositório GitHub selecionado
+
+- [ ] Confirmar a conta GitHub conectada e o repositório de destino: caosordenadogerencia-crypto/drlucasgraciano.
+- [ ] Revisar o estado do projeto antes da exportação.
+- [ ] Enviar o código para o repositório GitHub selecionado.
