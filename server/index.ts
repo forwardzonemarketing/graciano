@@ -18,8 +18,9 @@ async function startServer() {
 
   app.use(express.static(staticPath));
 
-  // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
+  // Fallback for client-side routes. app.use avoids wildcard route parsing differences
+  // between Express/router versions while preserving static-file handling above.
+  app.use((_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
 

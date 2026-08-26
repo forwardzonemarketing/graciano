@@ -40,3 +40,9 @@
 - [x] Confirmar a conta GitHub conectada e o repositório de destino: caosordenadogerencia-crypto/drlucasgraciano.
 - [x] Revisar o estado do projeto antes da exportação.
 - [x] Enviar o código para o repositório GitHub selecionado.
+
+## Correção do fallback do servidor
+
+- [x] Substituir a rota curinga por fallback compatível com o roteamento do Express.
+- [x] Validar build, inicialização do servidor e rota de aplicação.
+- [ ] Salvar e sincronizar a correção com o GitHub.
