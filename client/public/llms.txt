@@ -12,7 +12,7 @@ O escritório informa que não atua em Direito Penal comum, Tribunal do Júri, V
 
 ## Contato
 
-O formulário disponível na página apenas organiza a solicitação inicial no dispositivo do visitante. O envio ou preenchimento não estabelece relação advogado-cliente, formalizada somente mediante análise e contrato de honorários.
+A página apresenta um botão destinado ao formulário oficial do escritório. O acesso ou preenchimento não estabelece relação advogado-cliente, formalizada somente mediante análise e contrato de honorários.
 
 ## Fontes institucionais
 

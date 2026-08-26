@@ -2,7 +2,7 @@
  * Sentença em Âmbar — página editorial assimétrica, autoridade silenciosa,
  * latão pontual, fotografia low-key e movimento preciso orientado à leitura.
  */
-import { FormEvent, ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -17,7 +17,6 @@ import {
   ArrowRight,
   Check,
   ChevronRight,
-  ClipboardCheck,
   ExternalLink,
   FileSearch,
   Fingerprint,
@@ -122,7 +121,7 @@ const faqItems = [
   },
   {
     question: "O envio do formulário já estabelece uma relação advogado-cliente?",
-    answer: "Não. O formulário serve apenas para organizar o contato inicial. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
+    answer: "Não. O acesso ou preenchimento do formulário de contato não estabelece relação advogado-cliente. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
   },
 ];
 
@@ -767,32 +766,10 @@ function FaqSection() {
 }
 
 function ContactSection() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const summary = [
-      "Solicitação inicial — Dr. Lucas Graciano",
-      `Nome: ${data.get("nome") || ""}`,
-      `Forma de retorno: ${data.get("retorno") || ""}`,
-      `Assunto: ${data.get("assunto") || ""}`,
-      `Mensagem: ${data.get("mensagem") || ""}`,
-    ].join("\n");
-
-    try {
-      await navigator.clipboard.writeText(summary);
-      setSubmitted(true);
-      toast.success("Resumo copiado com segurança", {
-        description: "Cole a mensagem no canal oficial do escritório quando ele estiver publicado.",
-      });
-      form.reset();
-    } catch {
-      toast.error("Não foi possível copiar o resumo", {
-        description: "Revise as permissões do navegador e tente novamente.",
-      });
-    }
+  const openExternalForm = () => {
+    toast.info("Botão preparado para o formulário externo", {
+      description: "Adicione aqui a URL do seu formulário próprio para ativar o redirecionamento.",
+    });
   };
 
   return (
@@ -801,55 +778,35 @@ function ContactSection() {
       <div className="page-shell contact-layout">
         <Reveal className="contact-copy">
           <div className="eyebrow"><span className="eyebrow-line" /> Contato inicial</div>
-          <h2>Organize sua solicitação com <em>clareza e discrição.</em></h2>
+          <h2>Acesse o formulário com <em>clareza e discrição.</em></h2>
           <p>
-            Este formulário prepara um resumo da solicitação para uso no canal oficial do
-            escritório. O conteúdo é processado apenas no seu dispositivo e copiado para a área de transferência.
+            Utilize o formulário oficial do escritório para encaminhar sua solicitação inicial.
+            Evite compartilhar documentos ou informações excessivamente sensíveis nesta etapa.
           </p>
           <div className="contact-assurances">
             <div><Check size={15} /> Contato inicial informativo</div>
-            <div><Check size={15} /> Sem envio automático de dados</div>
+            <div><Check size={15} /> Triagem inicial organizada</div>
             <div><Check size={15} /> Relação profissional apenas mediante contrato</div>
           </div>
           <div className="contact-status">
             <Mail size={18} />
-            <span><strong>Canais oficiais em atualização</strong>Telefone, e-mail e registro profissional serão exibidos após confirmação dos dados.</span>
+            <span><strong>Integração preparada</strong>O botão receberá o endereço do seu formulário próprio assim que a URL for adicionada.</span>
           </div>
         </Reveal>
 
-        <Reveal className="form-panel" delay={0.1}>
-          <div className="form-head">
-            <span>Triagem inicial</span>
-            <small>01 / 01</small>
-          </div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="nome">Nome</label>
-            <input id="nome" name="nome" type="text" autoComplete="name" placeholder="Como podemos chamá-lo(a)?" required />
-
-            <label htmlFor="retorno">Forma preferencial de retorno</label>
-            <input id="retorno" name="retorno" type="text" placeholder="WhatsApp ou e-mail" required />
-
-            <label htmlFor="assunto">Assunto principal</label>
-            <select id="assunto" name="assunto" defaultValue="" required>
-              <option value="" disabled>Selecione uma opção</option>
-              <option>Investigação ou inquérito</option>
-              <option>Bloqueio de bens ou contas</option>
-              <option>Habeas Corpus ou recurso</option>
-              <option>Risco penal em contrato ou operação</option>
-              <option>Outro assunto relacionado à atuação</option>
-            </select>
-
-            <label htmlFor="mensagem">Breve contexto</label>
-            <textarea id="mensagem" name="mensagem" rows={4} placeholder="Evite compartilhar documentos ou informações excessivamente sensíveis nesta etapa." required />
-
-            <button className="button-primary form-submit" type="submit">
-              {submitted ? <ClipboardCheck size={18} /> : <ArrowRight size={18} />}
-              {submitted ? "Resumo copiado" : "Copiar resumo da solicitação"}
-            </button>
-            <p className="form-disclaimer">
-              O preenchimento não estabelece relação advogado-cliente, formalizada somente por contrato de honorários.
+        <Reveal className="external-form-panel" delay={0.1}>
+          <div className="external-form-number">01</div>
+          <div className="external-form-content">
+            <span>Formulário próprio</span>
+            <h3>Inicie seu contato pelo canal oficial.</h3>
+            <p>
+              O acesso ao formulário não estabelece relação advogado-cliente. A contratação depende
+              de análise individual e formalização por contrato de honorários.
             </p>
-          </form>
+            <button className="button-primary external-form-button" type="button" onClick={openExternalForm}>
+              Acessar formulário de contato <ArrowRight size={18} />
+            </button>
+          </div>
         </Reveal>
       </div>
     </section>

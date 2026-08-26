@@ -18,3 +18,10 @@
 - [x] Redigir critérios informativos sem promessa de resultado, comparação ou captação indevida.
 - [x] Integrar a seção ao fluxo visual da página e ao conteúdo semântico.
 - [x] Validar a atualização em desktop e mobile.
+
+## Botão para formulário próprio
+
+- [x] Remover campos, lógica de envio e dependências do formulário atual.
+- [x] Criar um único botão visualmente destacado e preparado para URL externa.
+- [x] Ajustar o texto da seção para não indicar envio interno de dados.
+- [x] Validar compilação e responsividade.
