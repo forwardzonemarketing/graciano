@@ -93,6 +93,20 @@ const moments = [
   "Necessidade de orientação preventiva antes de uma operação de maior complexidade.",
 ];
 
+const fitItems = [
+  "Pessoas físicas ou empresas envolvidas em investigação, inquérito ou processo relacionado a fatos econômicos ou financeiros.",
+  "Quem recebeu intimação, notificação, ordem de busca e apreensão ou enfrenta bloqueio judicial de bens e contas.",
+  "Quem precisa avaliar riscos jurídico-penais antes de contratos, publicidade, parcerias ou operações de maior complexidade.",
+  "Quem necessita analisar a viabilidade de Habeas Corpus ou recurso nas matérias abrangidas pela atuação do escritório.",
+];
+
+const nonFitItems = [
+  "Quem procura garantia de resultado, promessa de êxito ou solução previamente assegurada para o caso.",
+  "Demandas de Direito Penal comum, Tribunal do Júri, Violência Doméstica ou crimes de trânsito.",
+  "Questões exclusivamente cíveis, trabalhistas, tributárias ou de família, que exigem profissional da área correspondente.",
+  "Consultas genéricas destinadas a substituir análise jurídica individual, responsável e formalizada.",
+];
+
 const faqItems = [
   {
     question: "Em quais áreas o Dr. Lucas Graciano atua?",
@@ -598,6 +612,63 @@ function OrientationSection() {
   );
 }
 
+function FitSection() {
+  return (
+    <section className="section section-fit" id="adequacao" aria-labelledby="fit-title">
+      <div className="fit-background-mark" aria-hidden="true">LG</div>
+      <div className="page-shell">
+        <Reveal className="fit-intro">
+          <div className="eyebrow"><span className="eyebrow-line" /> Escopo e adequação</div>
+          <h2 id="fit-title">Para quem é. <em>Para quem não é.</em></h2>
+          <p>
+            Esta orientação é exclusivamente informativa. A aceitação de qualquer demanda depende
+            de análise individual, ausência de conflito de interesses e formalização contratual.
+          </p>
+        </Reveal>
+
+        <div className="fit-grid">
+          <Reveal className="fit-panel fit-panel-positive">
+            <div className="fit-panel-head">
+              <span>01</span>
+              <Check size={22} strokeWidth={1.5} />
+            </div>
+            <h3>Para quem a atuação pode ser adequada</h3>
+            <div className="fit-list">
+              {fitItems.map((item) => (
+                <div key={item}><i /><p>{item}</p></div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal className="fit-panel fit-panel-negative" delay={0.08}>
+            <div className="fit-panel-head">
+              <span>02</span>
+              <X size={22} strokeWidth={1.5} />
+            </div>
+            <h3>Para quem este escopo não é indicado</h3>
+            <div className="fit-list">
+              {nonFitItems.map((item) => (
+                <div key={item}><i /><p>{item}</p></div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal className="fit-ethics-note">
+          <ShieldCheck size={20} strokeWidth={1.4} />
+          <p>
+            Em conformidade com as diretrizes da OAB, esta página apresenta informações gerais,
+            sem promessa de resultado, comparação profissional ou indução à contratação.
+          </p>
+          <a href="https://www.oab.org.br/leisnormas/legislacao/provimentos/205-2021" target="_blank" rel="noreferrer">
+            Provimento 205/2021 <ExternalLink size={13} />
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function AboutSection() {
   return (
     <section className="section section-about" id="sobre">
@@ -822,6 +893,7 @@ export default function Home() {
         <CredentialRail />
         <PracticeSection />
         <OrientationSection />
+        <FitSection />
         <AboutSection />
         <ScopeNotice />
         <FaqSection />
