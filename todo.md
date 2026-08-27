@@ -52,4 +52,14 @@
 - [x] Confirmar a causa da execução indevida do servidor Express durante o deploy.
 - [x] Adicionar configuração Vercel para build Vite estática e fallback de rotas do frontend.
 - [x] Validar o diretório de saída e a resolução de rotas sem iniciar servidor Node.
-- [ ] Salvar e sincronizar a correção no GitHub.
+- [x] Salvar e sincronizar a correção no GitHub.
+
+## Vídeo institucional do Dr. Lucas — cancelado
+
+- [x] Integração do vídeo removida do escopo a pedido do usuário.
+
+## Página de agradecimento
+
+- [x] Criar a rota /obrigado e sua experiência de confirmação.
+- [x] Preservar a identidade visual e a acessibilidade em desktop e celular.
+- [ ] Salvar e sincronizar a página de agradecimento com o GitHub.
