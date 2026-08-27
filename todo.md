@@ -81,6 +81,11 @@
 - [x] Validar o link e a apresentação visual do contato por WhatsApp.
 - [ ] Salvar e sincronizar a atualização com o GitHub.
 
+## Sincronização atual com GitHub
+
+- [ ] Verificar se há alterações pendentes na branch principal.
+- [ ] Enviar o estado atual ao repositório GitHub configurado.
+
 ## Sincronização de prévia
 
 - [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.
