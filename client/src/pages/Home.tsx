@@ -2,7 +2,7 @@
  * Sentença em Âmbar — página editorial assimétrica, autoridade silenciosa,
  * latão pontual, fotografia low-key e movimento preciso orientado à leitura.
  */
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -24,6 +24,7 @@ import {
   LockKeyhole,
   Mail,
   Menu,
+  Play,
   Scale,
   ShieldCheck,
   X,
@@ -37,6 +38,8 @@ const ASSETS = {
   texture: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/XFnonbtKMZaWNJLM.png",
   logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/mBRpiGBVkpkjoYXI.png",
 };
+
+const EXTERNAL_FORM_URL = import.meta.env.VITE_EXTERNAL_FORM_URL?.trim() ?? "";
 
 const navItems = [
   { label: "Atuação", href: "#atuacao" },
@@ -279,7 +282,7 @@ function Header() {
             </a>
           ))}
         </nav>
-        <a className="header-cta" href="#contato">
+        <a className="header-cta" href="#contato" data-ads-intent="contact-navigation" data-ads-location="header">
           Entrar em contato <ArrowRight size={16} />
         </a>
         <button
@@ -337,89 +340,6 @@ function CursorHalo() {
   }, [x, y]);
 
   return <motion.div aria-hidden="true" className="cursor-halo" style={{ x: springX, y: springY }} />;
-}
-
-function IntroOverlay() {
-  const [visible, setVisible] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return window.sessionStorage.getItem("lucas-graciano-intro-seen") !== "true";
-  });
-  const reduceMotion = useReducedMotion();
-
-  const dismiss = () => {
-    window.sessionStorage.setItem("lucas-graciano-intro-seen", "true");
-    setVisible(false);
-  };
-
-  useEffect(() => {
-    if (!visible) return;
-    document.body.style.overflow = "hidden";
-    const timer = window.setTimeout(() => {
-      dismiss();
-    }, reduceMotion ? 150 : 1750);
-
-    return () => {
-      window.clearTimeout(timer);
-      document.body.style.overflow = "";
-    };
-  }, [reduceMotion]);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          className="intro-overlay"
-          initial={{ opacity: 1 }}
-          exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
-          transition={{ duration: reduceMotion ? 0.15 : 0.7, ease: [0.77, 0, 0.175, 1] }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Apresentação do escritório"
-        >
-          <div className="intro-ambient" />
-          <motion.img
-            className="intro-mark"
-            src={ASSETS.logo}
-            alt=""
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-          />
-          <motion.span
-            className="intro-kicker"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.38 }}
-          >
-            Advocacia Criminal
-          </motion.span>
-          <motion.h2
-            initial={reduceMotion ? false : { opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.52, ease: [0.23, 1, 0.32, 1] }}
-          >
-            <span>Dr.</span> Lucas Graciano
-          </motion.h2>
-          <motion.div
-            className="intro-line"
-            initial={reduceMotion ? false : { scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.05, delay: 0.76, ease: [0.77, 0, 0.175, 1] }}
-          />
-          <motion.small
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1.15 }}
-          >
-            Estratégia • Técnica • Discrição
-          </motion.small>
-          <button className="intro-skip" type="button" onClick={dismiss} autoFocus>
-            Pular apresentação <ArrowRight size={14} />
-          </button>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
 }
 
 function Hero() {
@@ -514,7 +434,7 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.58 }}
           >
-            <a className="button-primary" href="#contato">
+            <a className="button-primary" href="#contato" data-ads-intent="contact-navigation" data-ads-location="hero">
               Entender o próximo passo <ArrowRight size={18} />
             </a>
             <a className="button-quiet" href="#adequacao">
@@ -542,6 +462,60 @@ function Hero() {
         <span>Sigilo profissional</span>
         <span>Estratégia individualizada</span>
         <div className="scroll-indicator"><i /> Role para explorar</div>
+      </div>
+    </section>
+  );
+}
+
+type VideoSectionProps = {
+  id: string;
+  eyebrow: string;
+  title: ReactNode;
+  description: string;
+  videoId: string;
+  videoTitle: string;
+  number: string;
+  variant?: "hero" | "context" | "press";
+};
+
+function VideoSection({
+  id,
+  eyebrow,
+  title,
+  description,
+  videoId,
+  videoTitle,
+  number,
+  variant = "context",
+}: VideoSectionProps) {
+  const videoUrl = `https://youtu.be/${videoId}`;
+
+  return (
+    <section className={`section video-section video-section-${variant}`} id={id} aria-labelledby={`${id}-title`}>
+      <div className="video-section-index" aria-hidden="true">{number}</div>
+      <div className="page-shell video-layout">
+        <Reveal className="video-copy">
+          <div className="eyebrow"><span className="eyebrow-line" /> {eyebrow}</div>
+          <h2 id={`${id}-title`}>{title}</h2>
+          <p>{description}</p>
+          <a className="video-youtube-link" href={videoUrl} target="_blank" rel="noreferrer" data-ads-intent="video-open" data-video-id={videoId}>
+            <Play size={15} fill="currentColor" /> Assistir no YouTube <ExternalLink size={13} />
+          </a>
+        </Reveal>
+        <Reveal className="video-frame" delay={0.1}>
+          <div className="video-frame-topline"><span>Registro audiovisual</span><span>{number}</span></div>
+          <div className="youtube-player">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?rel=0&modestbranding=1`}
+              title={videoTitle}
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+          <div className="video-frame-footer"><span>Dr. Lucas Graciano</span><span>Advocacia Criminal</span></div>
+        </Reveal>
       </div>
     </section>
   );
@@ -846,6 +820,25 @@ function ContactPathSection() {
 }
 
 function ContactSection() {
+  const formUrl = useMemo(() => {
+    if (!EXTERNAL_FORM_URL || typeof window === "undefined") return EXTERNAL_FORM_URL;
+
+    try {
+      const destination = new URL(EXTERNAL_FORM_URL);
+      const source = new URLSearchParams(window.location.search);
+      const attributionKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+      attributionKeys.forEach((key) => {
+        const value = source.get(key);
+        if (value && !destination.searchParams.has(key)) destination.searchParams.set(key, value);
+      });
+
+      return destination.toString();
+    } catch {
+      return EXTERNAL_FORM_URL;
+    }
+  }, []);
+
   const openExternalForm = () => {
     toast.info("Canal de contato em atualização", {
       description: "O link do formulário oficial será incluído aqui assim que for disponibilizado pelo escritório.",
@@ -883,9 +876,15 @@ function ContactSection() {
               Assim que o formulário for publicado, este será o ponto de acesso para uma solicitação inicial.
               O preenchimento não estabelece relação advogado-cliente.
             </p>
-            <button className="button-primary external-form-button" type="button" onClick={openExternalForm}>
-              Ver status do formulário <ArrowRight size={18} />
-            </button>
+            {formUrl ? (
+              <a className="button-primary external-form-button" href={formUrl} data-ads-intent="form-open" data-ads-location="contact">
+                Acessar formulário de contato <ArrowRight size={18} />
+              </a>
+            ) : (
+              <button className="button-primary external-form-button" type="button" onClick={openExternalForm} data-ads-intent="form-status" data-ads-location="contact">
+                Ver status do formulário <ArrowRight size={18} />
+              </button>
+            )}
           </div>
         </Reveal>
       </div>
@@ -921,19 +920,47 @@ export default function Home() {
   return (
     <div className="site-page">
       <SeoRuntime />
-      <IntroOverlay />
       <motion.div className="reading-progress" style={{ scaleX: progress }} />
       <CursorHalo />
       <Header />
       <main>
         <Hero />
+        <VideoSection
+          id="conheca-o-advogado"
+          number="01"
+          eyebrow="Apresentação institucional"
+          title={<>Conheça o advogado que <em>atuará em seu caso.</em></>}
+          description="Dr. Lucas Graciano. Conheça a postura profissional, a forma de condução do atendimento e a atuação concentrada em Direito Penal Econômico e Financeiro."
+          videoId="4XX4WQCYLT0"
+          videoTitle="Conheça o advogado Dr. Lucas Graciano"
+          variant="hero"
+        />
         <CredentialRail />
         <PracticeSection />
         <OrientationSection />
         <FitSection />
+        <VideoSection
+          id="video-escopo"
+          number="02"
+          eyebrow="Conteúdo institucional"
+          title={<>Conheça a perspectiva que orienta <em>a atuação técnica.</em></>}
+          description="Um conteúdo em vídeo para complementar as informações sobre escopo, análise individualizada e as matérias atendidas pelo escritório."
+          videoId="_2U8SXGfiNQ"
+          videoTitle="Conteúdo institucional do Dr. Lucas Graciano"
+        />
         <AboutSection />
         <ScopeNotice />
         <FaqSection />
+        <VideoSection
+          id="imprensa"
+          number="03"
+          eyebrow="Participação pública"
+          title={<>Dr. Lucas Graciano <em>na imprensa.</em></>}
+          description="Entrevista e participação pública do Dr. Lucas Graciano em conteúdo veiculado na imprensa."
+          videoId="xWdMWfvx06s"
+          videoTitle="Dr. Lucas Graciano na imprensa"
+          variant="press"
+        />
         <ContactPathSection />
         <ContactSection />
       </main>

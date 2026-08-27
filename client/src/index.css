@@ -263,6 +263,34 @@
 .rail-group i { width: 4px; height: 4px; background: var(--oxblood); transform: rotate(45deg); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
+/* Sentença em Âmbar — players tratados como dossiês editoriais, com moldura documental e latão pontual. */
+.video-section { position: relative; isolation: isolate; overflow: hidden; padding: 142px 0; background: #0b0c0d; }
+.video-section::before { content: ""; position: absolute; z-index: -2; inset: 0; background: linear-gradient(118deg, rgb(185 138 72 / 6%), transparent 34%), linear-gradient(90deg, transparent 0 68%, rgb(75 22 27 / 14%) 68% 68.12%, transparent 68.12%); }
+.video-section::after { content: ""; position: absolute; z-index: -1; inset: 0; opacity: .1; background-image: linear-gradient(rgb(185 138 72 / 10%) 1px, transparent 1px), linear-gradient(90deg, rgb(185 138 72 / 10%) 1px, transparent 1px); background-size: 98px 98px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); mask-image: linear-gradient(90deg, transparent, #000 25%, #000 75%, transparent); }
+.video-section-hero { padding-top: 118px; background: #090a0b; }
+.video-section-press { background: #101113; }
+.video-section-press::before { background: radial-gradient(circle at 79% 27%, rgb(75 22 27 / 36%), transparent 31%), linear-gradient(118deg, rgb(185 138 72 / 6%), transparent 34%); }
+.video-section-index { position: absolute; top: 50px; right: 4vw; color: rgb(238 232 220 / 3.4%); font-family: "Cormorant Garamond", serif; font-size: min(23vw, 300px); line-height: .8; pointer-events: none; }
+.video-layout { display: grid; grid-template-columns: minmax(290px, .65fr) minmax(520px, 1fr); align-items: center; gap: 9vw; }
+.video-copy h2 { max-width: 610px; margin: 25px 0 27px; font-family: "Cormorant Garamond", serif; font-size: clamp(3.3rem, 5vw, 6.2rem); font-weight: 500; line-height: .9; letter-spacing: -.045em; }
+.video-copy h2 em { display: block; margin-left: 6vw; color: var(--brass-light); font-weight: 400; text-shadow: 0 0 20px rgb(210 170 107 / 14%); }
+.video-copy > p { max-width: 510px; color: var(--muted-ivory); font-size: 14px; line-height: 1.88; }
+.video-youtube-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 28px; padding-bottom: 8px; color: var(--brass-light); border-bottom: 1px solid rgb(185 138 72 / 47%); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; transition: color .2s var(--ease-out), border-color .2s var(--ease-out); }
+.video-youtube-link:hover { color: var(--ivory); border-color: var(--ivory); }
+.video-youtube-link svg:last-child { transition: transform .2s var(--ease-out); }
+.video-youtube-link:hover svg:last-child { transform: translate(2px, -2px); }
+.video-frame { position: relative; padding: 20px; border: 1px solid rgb(185 138 72 / 29%); background: rgb(7 8 9 / 74%); box-shadow: 0 36px 96px rgb(0 0 0 / 42%); }
+.video-frame::before, .video-frame::after { content: ""; position: absolute; width: 68px; height: 68px; pointer-events: none; }
+.video-frame::before { top: 9px; left: 9px; border-top: 1px solid rgb(210 170 107 / 50%); border-left: 1px solid rgb(210 170 107 / 50%); }
+.video-frame::after { right: 9px; bottom: 9px; border-right: 1px solid rgb(210 170 107 / 50%); border-bottom: 1px solid rgb(210 170 107 / 50%); }
+.video-frame-topline, .video-frame-footer { position: relative; z-index: 1; display: flex; justify-content: space-between; gap: 20px; color: #8c8478; font-size: 7px; font-weight: 600; text-transform: uppercase; letter-spacing: .2em; }
+.video-frame-topline { padding: 2px 3px 15px; }
+.video-frame-topline span:last-child, .video-frame-footer span:last-child { color: var(--brass); }
+.video-frame-footer { padding: 15px 3px 2px; }
+.youtube-player { position: relative; z-index: 1; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; background: #050607; }
+.youtube-player::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border: 1px solid rgb(185 138 72 / 14%); }
+.youtube-player iframe { position: absolute; width: 100%; height: 100%; inset: 0; border: 0; }
+
 .section { position: relative; padding: 150px 0; }
 .section-background { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 .section-index { position: absolute; top: 46px; right: 4vw; color: rgb(238 232 220 / 3.5%); font-family: "Cormorant Garamond", serif; font-size: min(23vw, 330px); line-height: .8; pointer-events: none; }
@@ -430,6 +458,7 @@
   .hero-portrait-background { right: -5%; width: min(60vw, 720px); }
   .practice-card { min-height: 390px; }
   .orientation-layout, .contact-layout { gap: 6vw; }
+  .video-layout { grid-template-columns: minmax(270px, .66fr) minmax(450px, 1fr); gap: 6vw; }
 }
 
 @media (max-width: 920px) {
@@ -449,6 +478,7 @@
   .hero-monogram-orbit { display: none; }
   .hero-foot { display: none; }
   .section { padding: 110px 0; }
+  .video-section { padding: 110px 0; }
   .section-heading-row { grid-template-columns: 1fr; gap: 30px; }
   .section-heading-row > p { max-width: 620px; }
   .practice-grid { grid-template-columns: repeat(2, 1fr); }
@@ -469,6 +499,8 @@
   .contact-layout { grid-template-columns: 1fr; }
   .contact-copy { max-width: 700px; }
   .faq-layout { grid-template-columns: 1fr; gap: 58px; }
+  .video-layout { grid-template-columns: 1fr; gap: 46px; }
+  .video-copy { max-width: 670px; }
   .faq-heading { position: relative; top: auto; max-width: 680px; }
   .contact-path-layout { grid-template-columns: 1fr; gap: 55px; }
   .footer-main { grid-template-columns: 1fr 1fr; }
@@ -498,6 +530,7 @@
   .intro-overlay h2 { max-width: 330px; font-size: clamp(3.2rem, 16vw, 4.8rem); }
   .intro-overlay small { font-size: 6.5px; letter-spacing: .23em; }
   .section { padding: 92px 0; }
+  .video-section { padding: 92px 0; }
   .section-heading-row { margin-bottom: 48px; }
   .section-heading-row h2, .orientation-sticky h2, .about-copy h2, .contact-copy h2 { font-size: clamp(3rem, 15vw, 4.8rem); }
   .practice-grid { grid-template-columns: 1fr; }
@@ -523,6 +556,12 @@
   .external-form-content h3 { font-size: 3rem; }
   .faq-item summary { min-height: 92px; grid-template-columns: 36px 1fr auto; font-size: 1.35rem; }
   .faq-item p { margin: -3px 28px 27px 52px; }
+  .video-copy h2 { font-size: clamp(3rem, 14.5vw, 4.8rem); }
+  .video-copy h2 em { margin-left: 7vw; }
+  .video-copy > p { font-size: 13px; line-height: 1.8; }
+  .video-frame { padding: 13px; }
+  .video-frame::before, .video-frame::after { width: 45px; height: 45px; }
+  .video-frame-topline, .video-frame-footer { font-size: 6px; letter-spacing: .15em; }
   .contact-path-step { grid-template-columns: 32px 1fr; gap: 12px; min-height: auto; padding: 23px 0; }
   .contact-path-step p { grid-column: 2; }
   .footer-main { grid-template-columns: 1fr; gap: 34px; }

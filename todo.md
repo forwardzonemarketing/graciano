@@ -63,3 +63,17 @@
 - [x] Criar a rota /obrigado e sua experiência de confirmação.
 - [x] Preservar a identidade visual e a acessibilidade em desktop e celular.
 - [ ] Salvar e sincronizar a página de agradecimento com o GitHub.
+
+## Vídeos e Google Ads
+
+- [x] Definir a incorporação direta dos três players do YouTube, sem baixar, hospedar ou navegar nos vídeos.
+- [x] Remover a entrada sobreposta que bloqueia o conteúdo inicial.
+- [x] Inserir vídeo institucional abaixo do hero e vídeo complementar após escopo e adequação.
+- [x] Inserir seção “Dr. Lucas Graciano na imprensa” após o FAQ.
+- [x] Ajustar mensagens, CTAs, desempenho e sinais de mensuração para Google Ads.
+- [x] Validar experiência e disponibilidade dos players incorporados em desktop e celular.
+- [ ] Salvar e sincronizar a versão no GitHub.
+
+## Sincronização de prévia
+
+- [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.

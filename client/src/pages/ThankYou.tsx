@@ -39,7 +39,7 @@ export default function ThankYou() {
   const transition = { duration: 0.7, ease: [0.23, 1, 0.32, 1] as const };
 
   return (
-    <main className="thank-you-page">
+    <main className="thank-you-page" data-ads-conversion-page="lead-submit">
       <img className="thank-you-portrait" src={portraitUrl} alt="" aria-hidden="true" />
       <div className="thank-you-wash" aria-hidden="true" />
       <div className="thank-you-noise" aria-hidden="true" />
