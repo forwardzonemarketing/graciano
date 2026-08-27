@@ -74,6 +74,13 @@
 - [x] Validar experiência e disponibilidade dos players incorporados em desktop e celular.
 - [ ] Salvar e sincronizar a versão no GitHub.
 
+## Contato por WhatsApp
+
+- [x] Criar mensagem inicial personalizada e adequada ao primeiro contato jurídico.
+- [x] Direcionar o botão de contato ao WhatsApp +55 11 98938-4980.
+- [x] Validar o link e a apresentação visual do contato por WhatsApp.
+- [ ] Salvar e sincronizar a atualização com o GitHub.
+
 ## Sincronização de prévia
 
 - [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.

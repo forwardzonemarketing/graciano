@@ -2,7 +2,7 @@
  * Sentença em Âmbar — página editorial assimétrica, autoridade silenciosa,
  * latão pontual, fotografia low-key e movimento preciso orientado à leitura.
  */
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -22,14 +22,13 @@ import {
   Fingerprint,
   Landmark,
   LockKeyhole,
-  Mail,
   Menu,
+  MessageCircle,
   Play,
   Scale,
   ShieldCheck,
   X,
 } from "lucide-react";
-import { toast } from "sonner";
 
 const ASSETS = {
   portrait: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/UVxaAmDKsVucQCuf.jpeg",
@@ -39,7 +38,9 @@ const ASSETS = {
   logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663111971865/mBRpiGBVkpkjoYXI.png",
 };
 
-const EXTERNAL_FORM_URL = import.meta.env.VITE_EXTERNAL_FORM_URL?.trim() ?? "";
+const WHATSAPP_NUMBER = "5511989384980";
+const WHATSAPP_MESSAGE = "Olá, Dr. Lucas Graciano. Gostaria de solicitar um contato inicial sobre uma questão de Direito Penal Econômico e Financeiro. Há prazo ou medida em curso? [Sim/Não].";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const navItems = [
   { label: "Atuação", href: "#atuacao" },
@@ -124,8 +125,8 @@ const faqItems = [
     answer: "A atuação profissional do advogado é regida pelo dever de sigilo previsto no Estatuto da Advocacia e no Código de Ética e Disciplina da OAB. Ainda assim, recomenda-se evitar o envio de documentos ou dados excessivamente sensíveis no primeiro contato.",
   },
   {
-    question: "O envio do formulário já estabelece uma relação advogado-cliente?",
-    answer: "Não. O acesso ou preenchimento do formulário de contato não estabelece relação advogado-cliente. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
+    question: "O primeiro contato pelo WhatsApp já estabelece uma relação advogado-cliente?",
+    answer: "Não. O primeiro contato pelo WhatsApp não estabelece relação advogado-cliente. A relação profissional somente se formaliza mediante análise do caso e contrato de honorários.",
   },
   {
     question: "O que é útil informar no primeiro contato?",
@@ -282,7 +283,7 @@ function Header() {
             </a>
           ))}
         </nav>
-        <a className="header-cta" href="#contato" data-ads-intent="contact-navigation" data-ads-location="header">
+        <a className="header-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="header">
           Entrar em contato <ArrowRight size={16} />
         </a>
         <button
@@ -434,8 +435,8 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.58 }}
           >
-            <a className="button-primary" href="#contato" data-ads-intent="contact-navigation" data-ads-location="hero">
-              Entender o próximo passo <ArrowRight size={18} />
+            <a className="button-primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="hero">
+              Solicitar contato no WhatsApp <ArrowRight size={18} />
             </a>
             <a className="button-quiet" href="#adequacao">
               Verificar adequação <ArrowDown size={17} />
@@ -820,40 +821,15 @@ function ContactPathSection() {
 }
 
 function ContactSection() {
-  const formUrl = useMemo(() => {
-    if (!EXTERNAL_FORM_URL || typeof window === "undefined") return EXTERNAL_FORM_URL;
-
-    try {
-      const destination = new URL(EXTERNAL_FORM_URL);
-      const source = new URLSearchParams(window.location.search);
-      const attributionKeys = ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-
-      attributionKeys.forEach((key) => {
-        const value = source.get(key);
-        if (value && !destination.searchParams.has(key)) destination.searchParams.set(key, value);
-      });
-
-      return destination.toString();
-    } catch {
-      return EXTERNAL_FORM_URL;
-    }
-  }, []);
-
-  const openExternalForm = () => {
-    toast.info("Canal de contato em atualização", {
-      description: "O link do formulário oficial será incluído aqui assim que for disponibilizado pelo escritório.",
-    });
-  };
-
   return (
     <section className="section section-contact" id="contato">
       <div className="contact-glow" />
       <div className="page-shell contact-layout">
         <Reveal className="contact-copy">
           <div className="eyebrow"><span className="eyebrow-line" /> Contato inicial</div>
-          <h2>Quando o canal estiver disponível, avance com <em>clareza e discrição.</em></h2>
+          <h2>Inicie o contato com <em>clareza e discrição.</em></h2>
           <p>
-            O formulário oficial será o canal destinado ao pedido de contato inicial. Evite compartilhar
+            O WhatsApp é destinado ao pedido de contato inicial. Evite compartilhar
             documentos ou informações excessivamente sensíveis antes de receber orientação individualizada.
           </p>
           <div className="contact-assurances">
@@ -862,29 +838,23 @@ function ContactSection() {
             <div><Check size={15} /> Relação profissional apenas mediante contrato</div>
           </div>
           <div className="contact-status">
-            <Mail size={18} />
-            <span><strong>Canal em preparação</strong>O endereço do formulário oficial será incluído neste botão assim que for disponibilizado pelo escritório.</span>
+            <MessageCircle size={18} />
+            <span><strong>WhatsApp para contato inicial</strong>Uma mensagem breve já estará preenchida para orientar a solicitação de contato.</span>
           </div>
         </Reveal>
 
         <Reveal className="external-form-panel" delay={0.1}>
           <div className="external-form-number">01</div>
           <div className="external-form-content">
-            <span>Formulário próprio</span>
-            <h3>Canal oficial de contato em preparação.</h3>
+            <span>Contato por WhatsApp</span>
+            <h3>Apresente o momento de forma objetiva.</h3>
             <p>
-              Assim que o formulário for publicado, este será o ponto de acesso para uma solicitação inicial.
-              O preenchimento não estabelece relação advogado-cliente.
+              O botão abre uma conversa com mensagem inicial personalizada. O primeiro contato não estabelece
+              relação advogado-cliente nem representa contratação.
             </p>
-            {formUrl ? (
-              <a className="button-primary external-form-button" href={formUrl} data-ads-intent="form-open" data-ads-location="contact">
-                Acessar formulário de contato <ArrowRight size={18} />
-              </a>
-            ) : (
-              <button className="button-primary external-form-button" type="button" onClick={openExternalForm} data-ads-intent="form-status" data-ads-location="contact">
-                Ver status do formulário <ArrowRight size={18} />
-              </button>
-            )}
+            <a className="button-primary external-form-button" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="contact">
+              Abrir conversa no WhatsApp <ArrowRight size={18} />
+            </a>
           </div>
         </Reveal>
       </div>
