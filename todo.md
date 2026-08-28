@@ -86,6 +86,12 @@
 - [ ] Verificar se há alterações pendentes na branch principal.
 - [ ] Enviar o estado atual ao repositório GitHub configurado.
 
+## Google Tag Manager
+
+- [x] Inserir o contêiner GTM-NVH4GD9D no head e o fallback noscript no body.
+- [x] Validar a build estática e a presença dos dois trechos no HTML publicado.
+- [ ] Salvar e sincronizar a atualização no GitHub.
+
 ## Sincronização de prévia
 
 - [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.
