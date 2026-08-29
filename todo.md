@@ -92,6 +92,21 @@
 - [x] Validar a build estática e a presença dos dois trechos no HTML publicado.
 - [ ] Salvar e sincronizar a atualização no GitHub.
 
+## Novo destino GitHub
+
+- [x] Confirmar acesso ao repositório forwardzonemarketing/graciano.
+- [x] Enviar a versão atualizada do projeto à branch principal.
+
+## Chave SSH de implantação
+
+- [x] Gerar um par Ed25519 exclusivo para forwardzonemarketing/graciano.
+- [ ] Fornecer a chave pública e orientar o cadastro como Deploy Key com acesso de escrita.
+
+## Sincronização por chave cadastrada
+
+- [x] Validar a chave SSH no repositório forwardzonemarketing/graciano.
+- [x] Configurar o remoto do projeto e enviar a branch principal.
+
 ## Sincronização de prévia
 
 - [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.
