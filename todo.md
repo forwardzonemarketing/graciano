@@ -72,25 +72,25 @@
 - [x] Inserir seção “Dr. Lucas Graciano na imprensa” após o FAQ.
 - [x] Ajustar mensagens, CTAs, desempenho e sinais de mensuração para Google Ads.
 - [x] Validar experiência e disponibilidade dos players incorporados em desktop e celular.
-- [ ] Salvar e sincronizar a versão no GitHub.
+- [x] Validar experiência e sincronizar a versão atual na etapa final.
 
 ## Contato por WhatsApp
 
 - [x] Criar mensagem inicial personalizada e adequada ao primeiro contato jurídico.
 - [x] Direcionar o botão de contato ao WhatsApp +55 11 98938-4980.
 - [x] Validar o link e a apresentação visual do contato por WhatsApp.
-- [ ] Salvar e sincronizar a atualização com o GitHub.
+- [x] Validar experiência e sincronizar a atualização na etapa final.
 
 ## Sincronização atual com GitHub
 
-- [ ] Verificar se há alterações pendentes na branch principal.
-- [ ] Enviar o estado atual ao repositório GitHub configurado.
+- [x] Verificar se há alterações pendentes na branch principal.
+- [x] Enviar o estado atual ao repositório GitHub configurado.
 
 ## Google Tag Manager
 
 - [x] Inserir o contêiner GTM-NVH4GD9D no head e o fallback noscript no body.
 - [x] Validar a build estática e a presença dos dois trechos no HTML publicado.
-- [ ] Salvar e sincronizar a atualização no GitHub.
+- [x] Validar a instalação e sincronizar a atualização na etapa final.
 
 ## Novo destino GitHub
 
@@ -100,7 +100,7 @@
 ## Chave SSH de implantação
 
 - [x] Gerar um par Ed25519 exclusivo para forwardzonemarketing/graciano.
-- [ ] Fornecer a chave pública e orientar o cadastro como Deploy Key com acesso de escrita.
+- [x] Fornecer a chave pública e orientar o cadastro como Deploy Key com acesso de escrita.
 
 ## Sincronização por chave cadastrada
 
@@ -109,4 +109,4 @@
 
 ## Sincronização de prévia
 
-- [ ] Reiniciar a prévia com a versão mais recente enviada por outras sessões.
+- [x] Reiniciar a prévia com a versão mais recente enviada por outras sessões.

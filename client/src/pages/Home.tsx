@@ -24,7 +24,6 @@ import {
   LockKeyhole,
   Menu,
   MessageCircle,
-  Play,
   Scale,
   ShieldCheck,
   X,
@@ -489,8 +488,6 @@ function VideoSection({
   number,
   variant = "context",
 }: VideoSectionProps) {
-  const videoUrl = `https://youtu.be/${videoId}`;
-
   return (
     <section className={`section video-section video-section-${variant}`} id={id} aria-labelledby={`${id}-title`}>
       <div className="video-section-index" aria-hidden="true">{number}</div>
@@ -499,8 +496,8 @@ function VideoSection({
           <div className="eyebrow"><span className="eyebrow-line" /> {eyebrow}</div>
           <h2 id={`${id}-title`}>{title}</h2>
           <p>{description}</p>
-          <a className="video-youtube-link" href={videoUrl} target="_blank" rel="noreferrer" data-ads-intent="video-open" data-video-id={videoId}>
-            <Play size={15} fill="currentColor" /> Assistir no YouTube <ExternalLink size={13} />
+          <a className="button-primary video-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location={`video-${id}`}>
+            <MessageCircle size={17} /> Conversar sobre meu caso <ArrowRight size={17} />
           </a>
         </Reveal>
         <Reveal className="video-frame" delay={0.1}>
@@ -582,6 +579,9 @@ function PracticeSection() {
             );
           })}
         </div>
+        <a className="button-primary section-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="atuacao">
+          <MessageCircle size={17} /> Conversar sobre uma situação <ArrowRight size={17} />
+        </a>
       </div>
     </section>
   );
@@ -599,7 +599,9 @@ function OrientationSection() {
             Quando há uma intimação, medida em curso ou possível impacto patrimonial,
             compreender o cenário e os próximos passos sem postergar a avaliação pode ser relevante.
           </p>
-          <a className="text-link" href="#primeiro-contato">Entender o primeiro contato <ArrowRight size={17} /></a>
+          <a className="button-primary section-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="orientacao">
+            <MessageCircle size={17} /> Solicitar orientação inicial <ArrowRight size={17} />
+          </a>
         </div>
         <div className="timeline">
           {moments.map((moment, index) => (
@@ -674,6 +676,9 @@ function FitSection() {
             Provimento 205/2021 <ExternalLink size={13} />
           </a>
         </Reveal>
+        <a className="button-primary section-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="adequacao">
+          <MessageCircle size={17} /> Verificar minha situação <ArrowRight size={17} />
+        </a>
       </div>
     </section>
   );
@@ -724,6 +729,9 @@ function AboutSection() {
             <div><span>02</span><strong>Análise do cenário</strong></div>
             <div><span>03</span><strong>Estratégia processual</strong></div>
           </div>
+          <a className="button-primary section-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="sobre">
+            <MessageCircle size={17} /> Falar com o Dr. Lucas <ArrowRight size={17} />
+          </a>
         </Reveal>
       </div>
     </section>
@@ -744,6 +752,9 @@ function ScopeNotice() {
           crimes de trânsito ou demandas cíveis, trabalhistas e de família. Para essas matérias,
           recomenda-se buscar profissional especializado na área correspondente.
         </p>
+        <a className="button-primary scope-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="scope-notice">
+          <MessageCircle size={17} /> Confirmar se há aderência <ArrowRight size={17} />
+        </a>
       </div>
     </section>
   );
@@ -815,6 +826,9 @@ function ContactPathSection() {
             </Reveal>
           ))}
         </div>
+        <a className="button-primary section-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="primeiro-contato">
+          <MessageCircle size={17} /> Iniciar contato com cuidado <ArrowRight size={17} />
+        </a>
       </div>
     </section>
   );
@@ -871,6 +885,9 @@ function Footer() {
           Conteúdo exclusivamente informativo. Cada caso demanda análise individualizada,
           sem garantia de resultado.
         </p>
+        <a className="button-primary footer-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer" data-ads-intent="whatsapp-open" data-ads-location="footer">
+          <MessageCircle size={16} /> Entrar em contato <ArrowRight size={16} />
+        </a>
         <nav aria-label="Navegação do rodapé">
           {navItems.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
