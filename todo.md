@@ -77,7 +77,7 @@
 ## Contato por WhatsApp
 
 - [x] Criar mensagem inicial personalizada e adequada ao primeiro contato jurídico.
-- [x] Direcionar o botão de contato ao WhatsApp +55 11 98938-4980.
+- [x] Direcionar o botão de contato ao WhatsApp +55 11 91782-5377.
 - [x] Validar o link e a apresentação visual do contato por WhatsApp.
 - [x] Validar experiência e sincronizar a atualização na etapa final.
 
@@ -110,3 +110,10 @@
 ## Sincronização de prévia
 
 - [x] Reiniciar a prévia com a versão mais recente enviada por outras sessões.
+
+## Atualização do WhatsApp
+
+- [x] Localizar todas as referências ao número antigo e à mensagem personalizada.
+- [x] Atualizar botões, documentação e mensuração para +55 11 91782-5377.
+- [x] Validar a build; sincronizar a versão atualizada no GitHub na etapa final.
+
