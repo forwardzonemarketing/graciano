@@ -38,7 +38,7 @@ const ASSETS = {
 };
 
 const WHATSAPP_NUMBER = "5511917825377";
-const WHATSAPP_MESSAGE = "Olá, Dr. Lucas Graciano. Gostaria de solicitar um contato inicial sobre uma questão de Direito Penal Econômico e Financeiro. Há prazo ou medida em curso? [Sim/Não].";
+const WHATSAPP_MESSAGE = "Olá Dr. Lucas Graciano, vim do site e gostaria de mais informações sobre uma questão de Direito Penal.";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 const navItems = [

@@ -117,3 +117,39 @@
 - [x] Atualizar botões, documentação e mensuração para +55 11 91782-5377.
 - [x] Validar a build; sincronizar a versão atualizada no GitHub na etapa final.
 
+
+## Recuperação de autenticação GitHub
+
+- [x] Verificar autenticação alternativa disponível para forwardzonemarketing/graciano; nenhuma sessão GitHub está autenticada.
+- [ ] Enviar a atualização do WhatsApp ao repositório remoto.
+- [ ] Confirmar o commit remoto.
+
+
+## Atualização e push do WhatsApp
+
+- [x] Confirmar que todos os botões usam +55 11 91782-5377.
+- [x] Validar build e mensagem personalizada.
+- [ ] Fazer push para forwardzonemarketing/graciano — bloqueado por `Permission denied (publickey)`; a chave privada anterior não existe nesta sessão.
+- [x] Confirmar o bloqueio de autenticação e manter o commit local pronto para envio.
+
+
+## Nova chave SSH para o GitHub
+
+- [x] Gerar e proteger uma nova chave Ed25519 para forwardzonemarketing/graciano.
+- [x] Entregar a chave pública e orientar o cadastro como Deploy Key com acesso de escrita.
+- [ ] Validar a autenticação e concluir o push após o cadastro.
+
+
+## Push após nova chave SSH
+
+- [x] Validar a nova chave SSH e o estado local.
+- [x] Enviar a versão atualizada para forwardzonemarketing/graciano na branch main.
+- [x] Confirmar o commit remoto `17462b9`.
+
+
+## Atualização da mensagem automática do WhatsApp
+
+- [x] Substituir a mensagem central pela frase informada.
+- [x] Validar a URL, a build e a ausência da mensagem anterior.
+- [ ] Fazer push para forwardzonemarketing/graciano e confirmar o commit remoto.
+
